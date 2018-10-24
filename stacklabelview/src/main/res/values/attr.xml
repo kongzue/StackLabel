@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StackLabel">
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension"/>
+        <attr name="paddingVertical" format="dimension"/>
+        <attr name="paddingHorizontal" format="dimension"/>
+        <attr name="itemMargin" format="dimension"/>
+        <attr name="deleteButton" format="boolean" />
+    </declare-styleable>
+</resources>
