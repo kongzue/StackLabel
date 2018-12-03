@@ -37,6 +37,9 @@ public class StackLabel extends RelativeLayout {
     private int itemMargin = 0;
     private boolean deleteButton = false;
     
+    private int deleteButtonImage = -1;
+    private int labelBackground = -1;
+    
     private OnLabelClickListener onLabelClickListener;
     private Context context;
     private List<String> labels;
@@ -76,6 +79,9 @@ public class StackLabel extends RelativeLayout {
             paddingHorizontal = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_paddingHorizontal, paddingHorizontal);
             itemMargin = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_itemMargin, itemMargin);
             deleteButton = typedArray.getBoolean(R.styleable.StackLabel_deleteButton, deleteButton);
+            
+            deleteButtonImage = typedArray.getResourceId(R.styleable.StackLabel_deleteButtonImage, deleteButtonImage);
+            labelBackground = typedArray.getResourceId(R.styleable.StackLabel_labelBackground, labelBackground);
             typedArray.recycle();
         } catch (Exception e) {
         }
@@ -185,6 +191,10 @@ public class StackLabel extends RelativeLayout {
                     imgDelete.setVisibility(VISIBLE);
                 } else {
                     imgDelete.setVisibility(GONE);
+                }
+                if (deleteButtonImage != -1) imgDelete.setImageResource(deleteButtonImage);
+                if (labelBackground != -1) {
+                    boxLabel.setBackgroundResource(labelBackground);
                 }
                 
                 int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);

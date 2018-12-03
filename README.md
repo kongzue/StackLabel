@@ -2,9 +2,9 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.0-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.0-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.0/link">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.0/link">
 <img src="https://img.shields.io/badge/Maven-1.1-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
@@ -31,14 +31,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.0</version>
+  <version>1.1.0</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.0'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.0'
 ```
 
 2) 从XML布局文件创建：
@@ -66,6 +66,8 @@ app:paddingHorizontal  | 标签内左右间距  | int(像素)
 app:paddingVertical  | 标签内上下间距  | int(像素)
 app:deleteButton  | 默认是否显示删除按钮  | boolean
 app:textSize  | 标签文本字号  | int(像素)
+app:deleteButtonImage  | 删除图标  | resId(资源id，例如@mipmap/img_delete)
+app:labelBackground  | Label背景图  | resId(资源id，例如@mipmap/img_delete)
 
 3) 添加内容：
 
@@ -136,6 +138,8 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.0:
+- 新增属性 deleteButtonImage 和 labelBackground 设置属性；
 
 v1.0:
 - 全新发布；

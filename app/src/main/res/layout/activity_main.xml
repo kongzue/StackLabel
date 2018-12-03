@@ -24,6 +24,7 @@
         app:paddingHorizontal="12dp"
         app:paddingVertical="8dp"
         app:deleteButton="false"
+        app:deleteButtonImage="@mipmap/img_delete"
         app:textSize="12dp"
         />
 

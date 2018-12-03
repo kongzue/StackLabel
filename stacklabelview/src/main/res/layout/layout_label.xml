@@ -18,7 +18,7 @@
             android:id="@+id/txt_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QWWWWW"
+            android:text=""
             android:textColor="#dc000000"
             android:textSize="12dp" />
 

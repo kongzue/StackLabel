@@ -7,5 +7,8 @@
         <attr name="paddingHorizontal" format="dimension"/>
         <attr name="itemMargin" format="dimension"/>
         <attr name="deleteButton" format="boolean" />
+
+        <attr name="deleteButtonImage" format="reference" />
+        <attr name="labelBackground" format="reference" />
     </declare-styleable>
 </resources>
