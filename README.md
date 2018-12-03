@@ -5,7 +5,7 @@ Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签�
 <img src="https://img.shields.io/badge/StackLabel-1.1.0-green.svg" alt="Kongzue StackLabel">
 </a>
 <a href="https://bintray.com/myzchh/maven/StackLabel/1.1.0/link">
-<img src="https://img.shields.io/badge/Maven-1.1-blue.svg" alt="Maven">
+<img src="https://img.shields.io/badge/Maven-1.1.0-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
