@@ -112,32 +112,34 @@ public class StackLabel extends RelativeLayout {
         
         if (labels != null && !labels.isEmpty()) {
             newHeight = 0;
-            for (int i = 0; i < items.size(); i++) {
-                View item = items.get(i);
-                
-                int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                item.measure(mWidth, mHeight);
-                
-                int n_x = 0;
-                int n_y = 0;
-                int o_y = 0;
-                
-                if (i != 0) {
-                    n_x = (int) items.get(i - 1).getX() + items.get(i - 1).getMeasuredWidth();
-                    n_y = (int) items.get(i - 1).getY() + items.get(i - 1).getMeasuredHeight();
-                    o_y = (int) items.get(i - 1).getY();
+            if (items!=null && !items.isEmpty()) {
+                for (int i = 0; i < items.size(); i++) {
+                    View item = items.get(i);
+        
+                    int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                    int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                    item.measure(mWidth, mHeight);
+        
+                    int n_x = 0;
+                    int n_y = 0;
+                    int o_y = 0;
+        
+                    if (i != 0) {
+                        n_x = (int) items.get(i - 1).getX() + items.get(i - 1).getMeasuredWidth();
+                        n_y = (int) items.get(i - 1).getY() + items.get(i - 1).getMeasuredHeight();
+                        o_y = (int) items.get(i - 1).getY();
+                    }
+        
+                    if (n_x + item.getMeasuredWidth() > maxWidth) {
+                        n_x = 0;
+                        o_y = n_y;
+                    }
+        
+                    item.setY(o_y);
+                    item.setX(n_x);
+        
+                    newHeight = (int) (item.getY() + item.getMeasuredHeight());
                 }
-                
-                if (n_x + item.getMeasuredWidth() > maxWidth) {
-                    n_x = 0;
-                    o_y = n_y;
-                }
-                
-                item.setY(o_y);
-                item.setX(n_x);
-                
-                newHeight = (int) (item.getY() + item.getMeasuredHeight());
             }
         }
     }
@@ -150,8 +152,8 @@ public class StackLabel extends RelativeLayout {
         labels = l;
         
         removeAllViews();
+        items = new ArrayList<>();
         if (labels != null && !labels.isEmpty()) {
-            items = new ArrayList<>();
             
             newHeight = 0;
             for (int i = 0; i < labels.size(); i++) {
