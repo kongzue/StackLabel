@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.1-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.2-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.1/link">
-<img src="https://img.shields.io/badge/Maven-1.1.1-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.2/link">
+<img src="https://img.shields.io/badge/Maven-1.1.2-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -17,6 +17,10 @@ Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签�
 Demo预览图如下：
 
 ![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_demo.png)
+
+从 1.1.2 版本起，亦可实现多选效果：
+
+![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_select_demo.png)
 
 Demo下载地址：https://fir.im/stacklabel
 
@@ -31,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.1'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.2'
 ```
 
 2) 从XML布局文件创建：
@@ -68,6 +72,9 @@ app:deleteButton  | 默认是否显示删除按钮  | boolean
 app:textSize  | 标签文本字号  | int(像素)
 app:deleteButtonImage  | 删除图标  | resId(资源id，例如@mipmap/img_delete)
 app:labelBackground  | Label背景图  | resId(资源id，例如@mipmap/img_delete)
+app:selectMode  | 选择模式开关  | boolean
+app:selectBackground  | 选中的Label背景图  | resId(资源id，例如@drawable/rect_label_bkg_select_normal)
+app:maxSelectNum  | 最大选择数量  | int
 
 3) 添加内容：
 
@@ -118,6 +125,40 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
 });
 ```
 
+4) 选择模式
+从 1.1.2 版本起，新增了选择模式。
+
+开启选择模式可以从 XML 布局中加入属性设置：
+```
+app:selectMode="true"
+```
+也可以从代码中开启：
+```
+stackLabelView.setSelectMode(true);
+```
+
+通过属性 maxSelectNum 可以设置最大可选数量，当值为 <=0 时不生效。
+
+当属性 maxSelectNum = 1 时为单选模式，选择其他 Label 会自动取消之前选中的 Label。
+
+当属性 maxSelectNum > 1 时为多选模式，选择数量大于 maxSelectNum 值时则无法选中更多的 Label。
+
+重复点击已选中的 Label 则会取消选中状态。
+
+选中的角标集合可以通过以下方式获取：
+```
+stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
+    @Override
+    public void onClick(int index, View v, String s) {
+        if (stackLabelView.isSelectMode()) {
+            for (int i : stackLabelView.getSelectIndexList()) {     //获取已选定集合的角标，也可通过stackLabelView.getSelectIndexArray()获取数组形式
+                Log.i(">>>", "select: " + i);
+            }
+        }
+    }
+});
+```
+
 以上，即 StackLabel 的基本使用流程。
 
 ## 开源协议
@@ -138,6 +179,9 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.2:
+- 新增了选择模式；
+
 v1.1.1:
 - 增加了判空避免空指针问题；
 

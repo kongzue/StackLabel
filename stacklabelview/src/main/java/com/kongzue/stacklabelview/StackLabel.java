@@ -40,6 +40,10 @@ public class StackLabel extends RelativeLayout {
     private int deleteButtonImage = -1;
     private int labelBackground = -1;
     
+    private boolean selectMode = false;
+    private int selectBackground = -1;
+    private int maxSelectNum = 0;
+    
     private OnLabelClickListener onLabelClickListener;
     private Context context;
     private List<String> labels;
@@ -82,6 +86,13 @@ public class StackLabel extends RelativeLayout {
             
             deleteButtonImage = typedArray.getResourceId(R.styleable.StackLabel_deleteButtonImage, deleteButtonImage);
             labelBackground = typedArray.getResourceId(R.styleable.StackLabel_labelBackground, labelBackground);
+            
+            selectMode = typedArray.getBoolean(R.styleable.StackLabel_selectMode, selectMode);
+            selectBackground = typedArray.getResourceId(R.styleable.StackLabel_selectBackground, selectBackground);
+            maxSelectNum = typedArray.getInt(R.styleable.StackLabel_maxSelectNum, maxSelectNum);
+            
+            if (selectBackground == -1) selectBackground = R.drawable.rect_label_bkg_select_normal;
+            if (labelBackground == -1) labelBackground = R.drawable.rect_normal_label_button;
             typedArray.recycle();
         } catch (Exception e) {
         }
@@ -112,32 +123,32 @@ public class StackLabel extends RelativeLayout {
         
         if (labels != null && !labels.isEmpty()) {
             newHeight = 0;
-            if (items!=null && !items.isEmpty()) {
+            if (items != null && !items.isEmpty()) {
                 for (int i = 0; i < items.size(); i++) {
                     View item = items.get(i);
-        
+                    
                     int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     item.measure(mWidth, mHeight);
-        
+                    
                     int n_x = 0;
                     int n_y = 0;
                     int o_y = 0;
-        
+                    
                     if (i != 0) {
                         n_x = (int) items.get(i - 1).getX() + items.get(i - 1).getMeasuredWidth();
                         n_y = (int) items.get(i - 1).getY() + items.get(i - 1).getMeasuredHeight();
                         o_y = (int) items.get(i - 1).getY();
                     }
-        
+                    
                     if (n_x + item.getMeasuredWidth() > maxWidth) {
                         n_x = 0;
                         o_y = n_y;
                     }
-        
+                    
                     item.setY(o_y);
                     item.setX(n_x);
-        
+                    
                     newHeight = (int) (item.getY() + item.getMeasuredHeight());
                 }
             }
@@ -170,8 +181,11 @@ public class StackLabel extends RelativeLayout {
         return this;
     }
     
+    private List<Integer> selectIndexs = new ArrayList<>();
+    
     private void initItem() {
         if (labels.size() != 0) {
+            selectIndexs = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
                 View item = items.get(i);
                 
@@ -195,9 +209,7 @@ public class StackLabel extends RelativeLayout {
                     imgDelete.setVisibility(GONE);
                 }
                 if (deleteButtonImage != -1) imgDelete.setImageResource(deleteButtonImage);
-                if (labelBackground != -1) {
-                    boxLabel.setBackgroundResource(labelBackground);
-                }
+                boxLabel.setBackgroundResource(labelBackground);
                 
                 int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                 int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -207,6 +219,32 @@ public class StackLabel extends RelativeLayout {
                 boxLabel.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (selectMode) {
+                            for (View item : items) {
+                                LinearLayout boxLabel = item.findViewById(R.id.box_label);
+                                boxLabel.setBackgroundResource(labelBackground);
+                            }
+                            if (selectIndexs.contains(index)) {
+                                int ind = 0;
+                                for (int i = 0; i < selectIndexs.size(); i++) {
+                                    if (selectIndexs.get(i) == index) {
+                                        ind = i;
+                                        break;
+                                    }
+                                }
+                                selectIndexs.remove(ind);
+                            } else {
+                                if (maxSelectNum == 1) selectIndexs.clear();
+                                if (maxSelectNum <= 0 || (maxSelectNum > 0 && selectIndexs.size() < maxSelectNum)) {
+                                    selectIndexs.add(index);
+                                }
+                            }
+                            for (int index : selectIndexs) {
+                                View item = items.get(index);
+                                LinearLayout boxLabel = item.findViewById(R.id.box_label);
+                                boxLabel.setBackgroundResource(selectBackground);
+                            }
+                        }
                         if (onLabelClickListener != null)
                             onLabelClickListener.onClick(index, v, labels.get(index));
                     }
@@ -232,5 +270,47 @@ public class StackLabel extends RelativeLayout {
         this.deleteButton = deleteButton;
         initItem();
         return this;
+    }
+    
+    public boolean isSelectMode() {
+        return selectMode;
+    }
+    
+    public StackLabel setSelectMode(boolean selectMode) {
+        this.selectMode = selectMode;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getSelectBackground() {
+        return selectBackground;
+    }
+    
+    public StackLabel setSelectBackground(int selectBackground) {
+        this.selectBackground = selectBackground;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getMaxSelectNum() {
+        return maxSelectNum;
+    }
+    
+    public StackLabel setMaxSelectNum(int maxSelectNum) {
+        this.maxSelectNum = maxSelectNum;
+        setLabels(labels);
+        return this;
+    }
+    
+    public List<Integer> getSelectIndexList() {
+        return selectIndexs;
+    }
+    
+    public int[] getSelectIndexArray() {
+        int[] arrays = new int[selectIndexs.size()];
+        for (int i=0;i<selectIndexs.size();i++){
+            arrays[i] = selectIndexs.get(i);
+        }
+        return arrays;
     }
 }

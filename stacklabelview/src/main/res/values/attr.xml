@@ -10,5 +10,9 @@
 
         <attr name="deleteButtonImage" format="reference" />
         <attr name="labelBackground" format="reference" />
+
+        <attr name="selectMode" format="boolean" />
+        <attr name="selectBackground" format="reference" />
+        <attr name="maxSelectNum" format="integer" />
     </declare-styleable>
 </resources>

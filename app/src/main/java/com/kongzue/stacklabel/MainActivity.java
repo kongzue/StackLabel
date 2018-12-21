@@ -2,6 +2,9 @@ package com.kongzue.stacklabel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     
     private StackLabel stackLabelView;
     private Switch switchDelete;
+    private EditText editMaxNum;
+    private Switch switchSelect;
     private EditText editAdd;
     private Button btnAdd;
     
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         
         stackLabelView = findViewById(R.id.stackLabelView);
         switchDelete = findViewById(R.id.switchDelete);
+        editMaxNum = findViewById(R.id.edit_maxNum);
+        switchSelect = findViewById(R.id.switchSelect);
         editAdd = findViewById(R.id.edit_add);
         btnAdd = findViewById(R.id.btn_add);
         
@@ -55,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                     stackLabelView.setLabels(labels);
                 } else {
                     Toast.makeText(MainActivity.this, "点击了：" + s, Toast.LENGTH_SHORT).show();
+                    if (stackLabelView.isSelectMode()) {
+                        for (int i : stackLabelView.getSelectIndexList()) {
+                            Log.i(">>>", "select: " + i);
+                        }
+                    }
                 }
             }
         });
@@ -63,6 +75,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 stackLabelView.setDeleteButton(isChecked);
+            }
+        });
+        
+        switchSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                stackLabelView.setSelectMode(isChecked);
+            }
+        });
+        
+        editMaxNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            
+            }
+            
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            
+            }
+            
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = editMaxNum.getText().toString();
+                if (str != null && !str.isEmpty()) {
+                    stackLabelView.setMaxSelectNum(Integer.parseInt(str));
+                } else {
+                    stackLabelView.setMaxSelectNum(0);
+                }
             }
         });
         
