@@ -103,6 +103,7 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
     }
 });
 ```
+### 删除模式
 
 您可以在代码中使用 setDeleteButton(boolean) 控制 StackLabel 删除模式的开关：
 ```
@@ -125,7 +126,8 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
 });
 ```
 
-4) 选择模式
+### 选择模式
+
 从 1.1.2 版本起，新增了选择模式。
 
 开启选择模式可以从 XML 布局中加入属性设置：
