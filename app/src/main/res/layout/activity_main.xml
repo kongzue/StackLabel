@@ -96,7 +96,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#FFD4D4"
             android:text="文本1" />
 
@@ -105,7 +104,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#FDFFB8"
             android:text="文本2" />
 
@@ -114,7 +112,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#D3F1FF"
             android:text="文本3" />
 
@@ -123,7 +120,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#FFFCD6"
             android:text="文本4" />
 
@@ -132,7 +128,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#FFD4E3"
             android:text="文本5" />
 
@@ -141,7 +136,6 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:gravity="center"
-            android:layout_margin="2dp"
             android:background="#C9FFE5"
             android:text="文本6" />
 

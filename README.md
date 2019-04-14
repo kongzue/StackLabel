@@ -180,7 +180,6 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
         android:layout_height="40dp"
         android:padding="10dp"
         android:gravity="center"
-        android:layout_margin="2dp"
         android:background="#FFD4D4"
         android:text="文本1" />
     <TextView
@@ -188,7 +187,6 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
         android:layout_height="40dp"
         android:padding="10dp"
         android:gravity="center"
-        android:layout_margin="2dp"
         android:background="#FDFFB8"
         android:text="文本2" />
         
