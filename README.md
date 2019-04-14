@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.2-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.3-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.2/link">
-<img src="https://img.shields.io/badge/Maven-1.1.2-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.3/link">
+<img src="https://img.shields.io/badge/Maven-1.1.3-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -18,16 +18,16 @@ Demo预览图如下：
 
 ![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_demo.png)
 
-从 1.1.2 版本起，亦可实现多选效果：
+从 1.1.3 版本起，亦可实现多选效果：
 
 ![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_select_demo.png)
 
 Demo下载地址：https://fir.im/stacklabel
 
-### 优势
+## 优势
 - 轻松易使用，快速创建，满足绝大多数堆叠标签使用场景。
 
-### 使用方法
+## StackLabel 使用方法
 
 1) 从 Maven 仓库或 jCenter 引入：
 Maven仓库：
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.2'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.3'
 ```
 
 2) 从XML布局文件创建：
@@ -163,6 +163,42 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
 
 以上，即 StackLabel 的基本使用流程。
 
+## StackLayout 使用方法
+从 1.1.3 版本起新增组件 StackLayout，它继承自 RelativeLayout，可以将自定义的子布局直接放入即可实现堆叠排列。
+
+![StackLayout](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/img_stacklayout.png)
+
+使用方法：
+```
+<com.kongzue.stacklabelview.StackLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:itemMargin="4dp">
+    
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_margin="2dp"
+        android:background="#FFD4D4"
+        android:text="文本1" />
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_margin="2dp"
+        android:background="#FDFFB8"
+        android:text="文本2" />
+        
+    <!--子布局-->
+        
+</com.kongzue.stacklabelview.StackLayout>
+```
+
+目前仅支持 itemMargin 属性调整子布局间距。
+
 ## 开源协议
 ```
 Copyright Kongzue StackLabel
@@ -181,6 +217,9 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.3:
+- 新增组件 StackLayout；
+
 v1.1.2:
 - 新增了选择模式；
 
