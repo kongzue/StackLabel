@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:deleteButton="false"
+        app:selectTextColor="@color/colorAccent"
         app:deleteButtonImage="@mipmap/img_delete"
         app:itemMargin="4dp"
         app:paddingHorizontal="12dp"

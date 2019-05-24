@@ -81,7 +81,12 @@ public class MainActivity extends AppCompatActivity {
         switchSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                stackLabelView.setSelectMode(isChecked);
+                
+                List<String> selectLabels = new ArrayList<>();
+                selectLabels.add("Android");
+                selectLabels.add("Cutisan");
+                selectLabels.add("密码键盘");
+                stackLabelView.setSelectMode(isChecked, selectLabels);
             }
         });
         

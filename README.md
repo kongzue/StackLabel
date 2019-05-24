@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.3-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.4-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.3/link">
-<img src="https://img.shields.io/badge/Maven-1.1.3-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.4/link">
+<img src="https://img.shields.io/badge/Maven-1.1.4-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.3</version>
+  <version>1.1.4</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.3'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.4'
 ```
 
 2) 从XML布局文件创建：
@@ -74,6 +74,7 @@ app:deleteButtonImage  | 删除图标  | resId(资源id，例如@mipmap/img_dele
 app:labelBackground  | Label背景图  | resId(资源id，例如@mipmap/img_delete)
 app:selectMode  | 选择模式开关  | boolean
 app:selectBackground  | 选中的Label背景图  | resId(资源id，例如@drawable/rect_label_bkg_select_normal)
+app:selectTextColor  | 选中标签文本颜色  | ColorInt
 app:maxSelectNum  | 最大选择数量  | int
 
 3) 添加内容：
@@ -161,6 +162,15 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
 });
 ```
 
+另外可通过 setSelectMode(boolean, List<String>) 开启选择模式，并设置默认选中的标签；
+```
+List<String> selectLabels = new ArrayList<>();
+selectLabels.add("Android");
+selectLabels.add("Cutisan");
+selectLabels.add("密码键盘");
+stackLabelView.setSelectMode(isChecked, selectLabels);
+```
+
 以上，即 StackLabel 的基本使用流程。
 
 ## StackLayout 使用方法
@@ -215,6 +225,10 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.4:
+- 新增方法 setSelectMode(boolean, List<String>) 开启选择模式，并设置默认选中的标签；
+- 新增属性 selectTextColor 控制选中文本颜色；
+
 v1.1.3:
 - 新增组件 StackLayout；
 

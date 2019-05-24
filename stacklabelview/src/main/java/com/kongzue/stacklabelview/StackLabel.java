@@ -42,6 +42,7 @@ public class StackLabel extends RelativeLayout {
     
     private boolean selectMode = false;
     private int selectBackground = -1;
+    private int selectTextColor = -1;
     private int maxSelectNum = 0;
     
     private OnLabelClickListener onLabelClickListener;
@@ -89,10 +90,12 @@ public class StackLabel extends RelativeLayout {
             
             selectMode = typedArray.getBoolean(R.styleable.StackLabel_selectMode, selectMode);
             selectBackground = typedArray.getResourceId(R.styleable.StackLabel_selectBackground, selectBackground);
+            selectTextColor = typedArray.getColor(R.styleable.StackLabel_selectTextColor, selectTextColor);
             maxSelectNum = typedArray.getInt(R.styleable.StackLabel_maxSelectNum, maxSelectNum);
             
             if (selectBackground == -1) selectBackground = R.drawable.rect_label_bkg_select_normal;
             if (labelBackground == -1) labelBackground = R.drawable.rect_normal_label_button;
+            if (selectTextColor == -1) selectTextColor = Color.parseColor("#dc000000");
             typedArray.recycle();
         } catch (Exception e) {
         }
@@ -242,14 +245,27 @@ public class StackLabel extends RelativeLayout {
                             for (int index : selectIndexs) {
                                 View item = items.get(index);
                                 LinearLayout boxLabel = item.findViewById(R.id.box_label);
+                                TextView txtLabel = item.findViewById(R.id.txt_label);
                                 boxLabel.setBackgroundResource(selectBackground);
+                                txtLabel.setTextColor(selectTextColor);
                             }
                         }
                         if (onLabelClickListener != null)
                             onLabelClickListener.onClick(index, v, labels.get(index));
                     }
                 });
+                
+                if (whichIsSelected != null) {
+                    for (String selectStr : whichIsSelected) {
+                        if (s.equals(selectStr)) {
+                            selectIndexs.add(index);
+                            boxLabel.setBackgroundResource(selectBackground);
+                            txtLabel.setTextColor(selectTextColor);
+                        }
+                    }
+                }
             }
+            whichIsSelected = null;
         }
     }
     
@@ -282,6 +298,19 @@ public class StackLabel extends RelativeLayout {
         return this;
     }
     
+    private List<String> whichIsSelected;       //初始化已选择列表
+    
+    public StackLabel setSelectMode(boolean selectMode, List<String> whichIsSelected) {
+        this.selectMode = selectMode;
+        if (selectMode) {
+            this.whichIsSelected = whichIsSelected;
+        } else {
+            whichIsSelected = null;
+        }
+        setLabels(labels);
+        return this;
+    }
+    
     public int getSelectBackground() {
         return selectBackground;
     }
@@ -289,6 +318,15 @@ public class StackLabel extends RelativeLayout {
     public StackLabel setSelectBackground(int selectBackground) {
         this.selectBackground = selectBackground;
         setLabels(labels);
+        return this;
+    }
+    
+    public int getSelectTextColor() {
+        return selectTextColor;
+    }
+    
+    public StackLabel setSelectTextColor(int selectTextColor) {
+        this.selectTextColor = selectTextColor;
         return this;
     }
     
@@ -308,7 +346,7 @@ public class StackLabel extends RelativeLayout {
     
     public int[] getSelectIndexArray() {
         int[] arrays = new int[selectIndexs.size()];
-        for (int i=0;i<selectIndexs.size();i++){
+        for (int i = 0; i < selectIndexs.size(); i++) {
             arrays[i] = selectIndexs.get(i);
         }
         return arrays;
