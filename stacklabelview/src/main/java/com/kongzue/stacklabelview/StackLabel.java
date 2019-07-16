@@ -44,6 +44,7 @@ public class StackLabel extends RelativeLayout {
     private int selectBackground = -1;
     private int selectTextColor = -1;
     private int maxSelectNum = 0;
+    private int minSelectNum = 0;
     
     private OnLabelClickListener onLabelClickListener;
     private Context context;
@@ -92,6 +93,8 @@ public class StackLabel extends RelativeLayout {
             selectBackground = typedArray.getResourceId(R.styleable.StackLabel_selectBackground, selectBackground);
             selectTextColor = typedArray.getColor(R.styleable.StackLabel_selectTextColor, selectTextColor);
             maxSelectNum = typedArray.getInt(R.styleable.StackLabel_maxSelectNum, maxSelectNum);
+            minSelectNum = typedArray.getInt(R.styleable.StackLabel_minSelectNum, minSelectNum);
+            if (minSelectNum > maxSelectNum && maxSelectNum != 0) minSelectNum = 0;
             
             if (selectBackground == -1) selectBackground = R.drawable.rect_label_bkg_select_normal;
             if (labelBackground == -1) labelBackground = R.drawable.rect_normal_label_button;
@@ -225,17 +228,23 @@ public class StackLabel extends RelativeLayout {
                         if (selectMode) {
                             for (View item : items) {
                                 LinearLayout boxLabel = item.findViewById(R.id.box_label);
+                                TextView txtLabel = item.findViewById(R.id.txt_label);
                                 boxLabel.setBackgroundResource(labelBackground);
+                                
+                                txtLabel.setTextColor(textColor);
+                                txtLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                             }
                             if (selectIndexs.contains(index)) {
-                                int ind = 0;
-                                for (int i = 0; i < selectIndexs.size(); i++) {
-                                    if (selectIndexs.get(i) == index) {
-                                        ind = i;
-                                        break;
+                                if (selectIndexs.size() > minSelectNum) {
+                                    int ind = 0;
+                                    for (int i = 0; i < selectIndexs.size(); i++) {
+                                        if (selectIndexs.get(i) == index) {
+                                            ind = i;
+                                            break;
+                                        }
                                     }
+                                    selectIndexs.remove(ind);
                                 }
-                                selectIndexs.remove(ind);
                             } else {
                                 if (maxSelectNum == 1) selectIndexs.clear();
                                 if (maxSelectNum <= 0 || (maxSelectNum > 0 && selectIndexs.size() < maxSelectNum)) {

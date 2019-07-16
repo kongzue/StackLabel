@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.4-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.5-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.4/link">
-<img src="https://img.shields.io/badge/Maven-1.1.4-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.5/link">
+<img src="https://img.shields.io/badge/Maven-1.1.5-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -22,7 +22,7 @@ Demo预览图如下：
 
 ![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_select_demo.png)
 
-Demo下载地址：https://fir.im/stacklabel
+Demo下载地址：<https://fir.im/stacklabel>
 
 ## 优势
 - 轻松易使用，快速创建，满足绝大多数堆叠标签使用场景。
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.4'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.5'
 ```
 
 2) 从XML布局文件创建：
@@ -76,6 +76,7 @@ app:selectMode  | 选择模式开关  | boolean
 app:selectBackground  | 选中的Label背景图  | resId(资源id，例如@drawable/rect_label_bkg_select_normal)
 app:selectTextColor  | 选中标签文本颜色  | ColorInt
 app:maxSelectNum  | 最大选择数量  | int
+app:minSelectNum  | 最小选择数量  | int
 
 3) 添加内容：
 
@@ -225,6 +226,10 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.5:
+- 修复了取消选择时文字颜色依然是选择状态的问题；
+- 新增 app:minSelectNum 属性，用于设定最小选中数量；
+
 v1.1.4:
 - 新增方法 setSelectMode(boolean, List<String>) 开启选择模式，并设置默认选中的标签；
 - 新增属性 selectTextColor 控制选中文本颜色；

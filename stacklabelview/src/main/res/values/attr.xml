@@ -15,5 +15,6 @@
         <attr name="selectBackground" format="reference" />
         <attr name="selectTextColor" format="color" />
         <attr name="maxSelectNum" format="integer" />
+        <attr name="minSelectNum" format="integer" />
     </declare-styleable>
 </resources>

@@ -22,6 +22,7 @@
         app:deleteButton="false"
         app:selectTextColor="@color/colorAccent"
         app:deleteButtonImage="@mipmap/img_delete"
+        app:minSelectNum="2"
         app:itemMargin="4dp"
         app:paddingHorizontal="12dp"
         app:paddingVertical="8dp"
