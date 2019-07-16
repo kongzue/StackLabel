@@ -41,19 +41,21 @@ public class MainActivity extends AppCompatActivity {
         editAdd = findViewById(R.id.edit_add);
         btnAdd = findViewById(R.id.btn_add);
         
-        labels = new ArrayList<>();
-        labels.add("花哪儿记账");
-        labels.add("给未来写封信");
-        labels.add("密码键盘");
-        labels.add("抬手唤醒");
-        labels.add("Cutisan");
-        labels.add("记-专注创作");
-        labels.add("我也不知道我是谁");
-        labels.add("崩崩崩");
-        labels.add("Android");
-        labels.add("开发");
+        //labels = new ArrayList<>();
+        //labels.add("花哪儿记账");
+        //labels.add("给未来写封信");
+        //labels.add("密码键盘");
+        //labels.add("抬手唤醒");
+        //labels.add("Cutisan");
+        //labels.add("记-专注创作");
+        //labels.add("我也不知道我是谁");
+        //labels.add("崩崩崩");
+        //labels.add("Android");
+        //labels.add("开发");
+        //
+        //stackLabelView.setLabels(labels);
+        stackLabelView.setLabels(new String[]{"花哪儿记账","给未来写封信","密码键盘","抬手唤醒"});
         
-        stackLabelView.setLabels(labels);
         stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
             @Override
             public void onClick(int index, View v, String s) {

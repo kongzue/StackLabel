@@ -35,6 +35,8 @@ public class StackLabel extends RelativeLayout {
     private int paddingVertical = 0;
     private int paddingHorizontal = 0;
     private int itemMargin = 0;
+    private int itemMarginVertical = 0;
+    private int itemMarginHorizontal = 0;
     private boolean deleteButton = false;
     
     private int deleteButtonImage = -1;
@@ -84,6 +86,8 @@ public class StackLabel extends RelativeLayout {
             paddingVertical = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_paddingVertical, paddingVertical);
             paddingHorizontal = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_paddingHorizontal, paddingHorizontal);
             itemMargin = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_itemMargin, itemMargin);
+            itemMarginVertical = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_itemMarginVertical, itemMarginVertical);
+            itemMarginHorizontal = typedArray.getDimensionPixelOffset(R.styleable.StackLabel_itemMarginHorizontal, itemMarginHorizontal);
             deleteButton = typedArray.getBoolean(R.styleable.StackLabel_deleteButton, deleteButton);
             
             deleteButtonImage = typedArray.getResourceId(R.styleable.StackLabel_deleteButtonImage, deleteButtonImage);
@@ -98,7 +102,6 @@ public class StackLabel extends RelativeLayout {
             
             if (selectBackground == -1) selectBackground = R.drawable.rect_label_bkg_select_normal;
             if (labelBackground == -1) labelBackground = R.drawable.rect_normal_label_button;
-            if (selectTextColor == -1) selectTextColor = Color.parseColor("#dc000000");
             typedArray.recycle();
         } catch (Exception e) {
         }
@@ -187,6 +190,31 @@ public class StackLabel extends RelativeLayout {
         return this;
     }
     
+    public StackLabel setLabels(String[] arrays) {
+        labels = new ArrayList<>();
+        for (String s:arrays){
+            labels.add(s);
+        }
+        
+        removeAllViews();
+        items = new ArrayList<>();
+        if (labels != null && !labels.isEmpty()) {
+            
+            newHeight = 0;
+            for (int i = 0; i < labels.size(); i++) {
+                View item = LayoutInflater.from(context).inflate(R.layout.layout_label, null, false);
+                
+                newHeight = item.getMeasuredHeight();
+                
+                addView(item);
+                items.add(item);
+            }
+            
+            initItem();
+        }
+        return this;
+    }
+    
     private List<Integer> selectIndexs = new ArrayList<>();
     
     private void initItem() {
@@ -206,7 +234,11 @@ public class StackLabel extends RelativeLayout {
                 
                 boxLabel.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
                 ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) boxLabel.getLayoutParams();
-                p.setMargins(itemMargin, itemMargin, itemMargin, itemMargin);
+                if (itemMarginHorizontal == 0 && itemMarginVertical == 0) {
+                    p.setMargins(itemMargin, itemMargin, itemMargin, itemMargin);
+                } else {
+                    p.setMargins(itemMarginHorizontal, itemMarginVertical, itemMarginHorizontal, itemMarginVertical);
+                }
                 boxLabel.requestLayout();
                 
                 if (deleteButton) {
@@ -359,5 +391,75 @@ public class StackLabel extends RelativeLayout {
             arrays[i] = selectIndexs.get(i);
         }
         return arrays;
+    }
+    
+    public int getTextColor() {
+        return textColor;
+    }
+    
+    public StackLabel setTextColor(int textColor) {
+        this.textColor = textColor;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getTextSize() {
+        return textSize;
+    }
+    
+    public StackLabel setTextSize(int textSize) {
+        this.textSize = textSize;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getPaddingVertical() {
+        return paddingVertical;
+    }
+    
+    public StackLabel setPaddingVertical(int paddingVertical) {
+        this.paddingVertical = paddingVertical;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getPaddingHorizontal() {
+        return paddingHorizontal;
+    }
+    
+    public StackLabel setPaddingHorizontal(int paddingHorizontal) {
+        this.paddingHorizontal = paddingHorizontal;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getItemMargin() {
+        return itemMargin;
+    }
+    
+    public StackLabel setItemMargin(int itemMargin) {
+        this.itemMargin = itemMargin;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getItemMarginVertical() {
+        return itemMarginVertical;
+    }
+    
+    public StackLabel setItemMarginVertical(int itemMarginVertical) {
+        this.itemMarginVertical = itemMarginVertical;
+        setLabels(labels);
+        return this;
+    }
+    
+    public int getItemMarginHorizontal() {
+        return itemMarginHorizontal;
+    }
+    
+    public StackLabel setItemMarginHorizontal(int itemMarginHorizontal) {
+        this.itemMarginHorizontal = itemMarginHorizontal;
+        setLabels(labels);
+        return this;
     }
 }

@@ -6,6 +6,8 @@
         <attr name="paddingVertical" format="dimension"/>
         <attr name="paddingHorizontal" format="dimension"/>
         <attr name="itemMargin" format="dimension"/>
+        <attr name="itemMarginVertical" format="dimension"/>
+        <attr name="itemMarginHorizontal" format="dimension"/>
         <attr name="deleteButton" format="boolean" />
 
         <attr name="deleteButtonImage" format="reference" />

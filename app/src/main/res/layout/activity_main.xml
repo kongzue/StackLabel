@@ -20,12 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:deleteButton="false"
-        app:selectTextColor="@color/colorAccent"
         app:deleteButtonImage="@mipmap/img_delete"
-        app:minSelectNum="2"
         app:itemMargin="4dp"
+        app:minSelectNum="2"
         app:paddingHorizontal="12dp"
         app:paddingVertical="8dp"
+        app:selectTextColor="@color/colorAccent"
         app:textColor="#e6000000"
         app:textSize="12dp" />
 
@@ -90,55 +90,55 @@
     <com.kongzue.stacklabelview.StackLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemMargin="4dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:itemMargin="4dp">
 
         <TextView
             android:layout_width="110dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#FFD4D4"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本1" />
 
         <TextView
             android:layout_width="120dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#FDFFB8"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本2" />
 
         <TextView
             android:layout_width="130dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#D3F1FF"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本3" />
 
         <TextView
             android:layout_width="90dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#FFFCD6"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本4" />
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#FFD4E3"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本5" />
 
         <TextView
             android:layout_width="110dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:gravity="center"
             android:background="#C9FFE5"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="文本6" />
 
         <!--子布局-->

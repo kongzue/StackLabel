@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.5-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.6-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.5/link">
-<img src="https://img.shields.io/badge/Maven-1.1.5-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.6/link">
+<img src="https://img.shields.io/badge/Maven-1.1.6-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.5</version>
+  <version>1.1.6</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.5'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.6'
 ```
 
 2) 从XML布局文件创建：
@@ -66,6 +66,8 @@ implementation 'com.kongzue.stacklabel:stacklabelview:1.1.5'
 ---|---|---
 app:textColor  | 标签文本颜色  | ColorInt
 app:itemMargin  | 标签外边距  | int(像素)
+app:itemMarginHorizontal | 标签外横向边距  | int(像素)
+app:itemMarginVertical | 标签外纵向边距  | int(像素)
 app:paddingHorizontal  | 标签内左右间距  | int(像素)
 app:paddingVertical  | 标签内上下间距  | int(像素)
 app:deleteButton  | 默认是否显示删除按钮  | boolean
@@ -94,6 +96,11 @@ labels.add("崩崩崩");
 labels.add("Android");
 labels.add("开发");
 stackLabelView.setLabels(labels);
+```
+
+或者也可以使用 String 集合创建：
+```
+stackLabelView.setLabels(new String[]{"花哪儿记账","给未来写封信","密码键盘","抬手唤醒"});
 ```
 
 要实现标签点击，则需要设置点击监听器：
@@ -226,6 +233,11 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.6:
+- 新增 app:itemMarginVertical 和 app:itemMarginHorizontal 属性，可自定义 Label 上下间距；
+- 新增 setLabels(String[] arrays) 方便使用集合创建；
+- 修复选中标签文字颜色设置纯白色无效的问题；
+
 v1.1.5:
 - 修复了取消选择时文字颜色依然是选择状态的问题；
 - 新增 app:minSelectNum 属性，用于设定最小选中数量；
