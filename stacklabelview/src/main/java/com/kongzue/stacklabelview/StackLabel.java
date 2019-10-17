@@ -3,7 +3,6 @@ package com.kongzue.stacklabelview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
+import com.kongzue.stacklabelview.view.LabelConstraint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,12 +129,15 @@ public class StackLabel extends RelativeLayout {
     
     private void refreshViews() {
         int maxWidth = getMeasuredWidth();
+        Log.i(">>>", "maxWidth: "+maxWidth);
         
         if (labels != null && !labels.isEmpty()) {
             newHeight = 0;
             if (items != null && !items.isEmpty()) {
                 for (int i = 0; i < items.size(); i++) {
                     View item = items.get(i);
+                    LabelConstraint boxConstraint = item.findViewById(R.id.box_constraint);
+                    boxConstraint.setmMaxWidth(maxWidth);
                     
                     int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -192,7 +195,7 @@ public class StackLabel extends RelativeLayout {
     
     public StackLabel setLabels(String[] arrays) {
         labels = new ArrayList<>();
-        for (String s:arrays){
+        for (String s : arrays) {
             labels.add(s);
         }
         

@@ -68,7 +68,6 @@ public class StackLayout extends RelativeLayout {
     
     private void refreshViews() {
         int maxWidth = getMeasuredWidth();
-        Log.d(">>>", "maxWidth: " + maxWidth);
         
         items = new ArrayList<>();
         for (int i = 0; i < getChildCount(); i++) {

@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.6-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.7-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.6/link">
-<img src="https://img.shields.io/badge/Maven-1.1.6-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.7/link">
+<img src="https://img.shields.io/badge/Maven-1.1.7-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.6</version>
+  <version>1.1.7</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.6'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.7'
 ```
 
 2) 从XML布局文件创建：
@@ -233,6 +233,9 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.7:
+- 对单标签长度超出屏幕的问题进行了修复，目前使用了锁最大宽度的限制方式。
+
 v1.1.6:
 - 新增 app:itemMarginVertical 和 app:itemMarginHorizontal 属性，可自定义 Label 上下间距；
 - 新增 setLabels(String[] arrays) 方便使用集合创建；
