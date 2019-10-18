@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
-import com.kongzue.stacklabelview.view.LabelConstraint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ import java.util.List;
  * Mail: myzcxhh@live.cn
  * CreateTime: 2018/10/24 20:58
  */
-public class StackLabel extends RelativeLayout {
+public class StackLabel extends ViewGroup {
     
     private int textColor = 0;
     private int textSize = 0;
@@ -51,6 +50,8 @@ public class StackLabel extends RelativeLayout {
     private OnLabelClickListener onLabelClickListener;
     private Context context;
     private List<String> labels;
+    
+    private String loadLabelsArray;
     
     public StackLabel(Context context) {
         super(context);
@@ -100,10 +101,24 @@ public class StackLabel extends RelativeLayout {
             minSelectNum = typedArray.getInt(R.styleable.StackLabel_minSelectNum, minSelectNum);
             if (minSelectNum > maxSelectNum && maxSelectNum != 0) minSelectNum = 0;
             
+            loadLabelsArray = typedArray.getString(R.styleable.StackLabel_labels);
+            
             if (selectBackground == -1) selectBackground = R.drawable.rect_label_bkg_select_normal;
             if (labelBackground == -1) labelBackground = R.drawable.rect_normal_label_button;
             typedArray.recycle();
         } catch (Exception e) {
+        }
+    }
+    
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        if (loadLabelsArray != null && !loadLabelsArray.isEmpty()) {
+            if (loadLabelsArray.contains(",")) {
+                setLabels(loadLabelsArray.split(","));
+            } else {
+                addLabel(loadLabelsArray);
+            }
         }
     }
     
@@ -119,6 +134,11 @@ public class StackLabel extends RelativeLayout {
     private int newHeight = 0;
     
     @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    
+    }
+    
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         
@@ -129,39 +149,41 @@ public class StackLabel extends RelativeLayout {
     
     private void refreshViews() {
         int maxWidth = getMeasuredWidth();
-        Log.i(">>>", "maxWidth: "+maxWidth);
+        
         
         if (labels != null && !labels.isEmpty()) {
             newHeight = 0;
             if (items != null && !items.isEmpty()) {
+                int l = 0, t = 0, r = 0, b = 0;
+                
                 for (int i = 0; i < items.size(); i++) {
                     View item = items.get(i);
-                    LabelConstraint boxConstraint = item.findViewById(R.id.box_constraint);
-                    boxConstraint.setmMaxWidth(maxWidth);
                     
-                    int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                    int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                    int mWidth = View.MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST);           //AT_MOST：先按照最大宽度计算，如果小于则按实际值，如果大于，按最大宽度
+                    int mHeight = View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);         //UNSPECIFIED：不确定，根据实际情况计算
                     item.measure(mWidth, mHeight);
                     
-                    int n_x = 0;
-                    int n_y = 0;
-                    int o_y = 0;
+                    int childWidth = item.getMeasuredWidth();
+                    int childHeight = item.getMeasuredHeight();
                     
-                    if (i != 0) {
-                        n_x = (int) items.get(i - 1).getX() + items.get(i - 1).getMeasuredWidth();
-                        n_y = (int) items.get(i - 1).getY() + items.get(i - 1).getMeasuredHeight();
-                        o_y = (int) items.get(i - 1).getY();
+                    if ((l + childWidth) > maxWidth) {
+                        l = 0;
+                        t = t + childHeight;
                     }
                     
-                    if (n_x + item.getMeasuredWidth() > maxWidth) {
-                        n_x = 0;
-                        o_y = n_y;
+                    r = l + childWidth;
+                    
+                    if (childWidth > maxWidth) {
+                        r = maxWidth;
                     }
                     
-                    item.setY(o_y);
-                    item.setX(n_x);
+                    b = t + childHeight;
                     
-                    newHeight = (int) (item.getY() + item.getMeasuredHeight());
+                    item.layout(l, t, r, b);
+                    
+                    l = l + childWidth;
+                    
+                    newHeight = t + childHeight;
                 }
             }
         }
@@ -174,23 +196,26 @@ public class StackLabel extends RelativeLayout {
     public StackLabel setLabels(List<String> l) {
         labels = l;
         
-        removeAllViews();
-        items = new ArrayList<>();
-        if (labels != null && !labels.isEmpty()) {
-            
-            newHeight = 0;
-            for (int i = 0; i < labels.size(); i++) {
-                View item = LayoutInflater.from(context).inflate(R.layout.layout_label, null, false);
-                
-                newHeight = item.getMeasuredHeight();
-                
-                addView(item);
-                items.add(item);
-            }
-            
-            initItem();
-        }
+        reloadViews();
         return this;
+    }
+    
+    public boolean remove(int index) {
+        if (labels == null) {
+            return false;
+        }
+        labels.remove(index);
+        reloadViews();
+        return true;
+    }
+    
+    public boolean remove(String label) {
+        if (labels == null) {
+            return false;
+        }
+        boolean flag = labels.remove(label);
+        reloadViews();
+        return flag;
     }
     
     public StackLabel setLabels(String[] arrays) {
@@ -199,15 +224,32 @@ public class StackLabel extends RelativeLayout {
             labels.add(s);
         }
         
+        reloadViews();
+        return this;
+    }
+    
+    public boolean isHave(String label) {
+        if (labels == null) {
+            return false;
+        }
+        return labels.contains(label);
+    }
+    
+    public int count() {
+        if (labels == null) {
+            return 0;
+        } else {
+            return labels.size();
+        }
+    }
+    
+    public void reloadViews() {
         removeAllViews();
         items = new ArrayList<>();
         if (labels != null && !labels.isEmpty()) {
             
-            newHeight = 0;
             for (int i = 0; i < labels.size(); i++) {
                 View item = LayoutInflater.from(context).inflate(R.layout.layout_label, null, false);
-                
-                newHeight = item.getMeasuredHeight();
                 
                 addView(item);
                 items.add(item);
@@ -215,6 +257,13 @@ public class StackLabel extends RelativeLayout {
             
             initItem();
         }
+    }
+    
+    public StackLabel addLabel(String label) {
+        if (labels == null) labels = new ArrayList<>();
+        labels.add(label);
+        
+        reloadViews();
         return this;
     }
     
@@ -251,10 +300,6 @@ public class StackLabel extends RelativeLayout {
                 }
                 if (deleteButtonImage != -1) imgDelete.setImageResource(deleteButtonImage);
                 boxLabel.setBackgroundResource(labelBackground);
-                
-                int mWidth = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                int mHeight = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                item.measure(mWidth, mHeight);
                 
                 final int index = i;
                 boxLabel.setOnClickListener(new OnClickListener() {
@@ -464,5 +509,9 @@ public class StackLabel extends RelativeLayout {
         this.itemMarginHorizontal = itemMarginHorizontal;
         setLabels(labels);
         return this;
+    }
+    
+    private void log(Object s) {
+        Log.i(">>>", s.toString());
     }
 }

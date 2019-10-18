@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.7-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.8-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.7/link">
-<img src="https://img.shields.io/badge/Maven-1.1.7-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.8/link">
+<img src="https://img.shields.io/badge/Maven-1.1.8-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.7</version>
+  <version>1.1.8</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.7'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.8'
 ```
 
 2) 从XML布局文件创建：
@@ -57,6 +57,7 @@ implementation 'com.kongzue.stacklabel:stacklabelview:1.1.7'
     app:paddingVertical="8dp"
     app:deleteButton="false"
     app:textSize="12dp"
+    app:labels="标签1,标签2,标签3,标签4"
     />
 ```
 
@@ -79,6 +80,9 @@ app:selectBackground  | 选中的Label背景图  | resId(资源id，例如@drawa
 app:selectTextColor  | 选中标签文本颜色  | ColorInt
 app:maxSelectNum  | 最大选择数量  | int
 app:minSelectNum  | 最小选择数量  | int
+app:labels | 预设置标签 | String
+
+* 备注：预设置标签必须以英文“,”分隔才可生效
 
 3) 添加内容：
 
@@ -98,9 +102,14 @@ labels.add("开发");
 stackLabelView.setLabels(labels);
 ```
 
-或者也可以使用 String 集合创建：
+也可以使用 String 集合创建：
 ```
 stackLabelView.setLabels(new String[]{"花哪儿记账","给未来写封信","密码键盘","抬手唤醒"});
+```
+
+另外在 1.1.8 版本中，加入了以下方法可动态添加：
+```
+stackLabelView.addLabel("新的标签");
 ```
 
 要实现标签点击，则需要设置点击监听器：
@@ -124,7 +133,7 @@ stackLabelView.setDeleteButton(ture);
 stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
     @Override
     public void onClick(int index, View v, String s) {
-        if (stackLabelView.isDeleteButton()) {
+        if (stackLabelView.isDeleteButton()) {      //是否开启了删除模式
             //删除并重新设置标签
             labels.remove(index);
             stackLabelView.setLabels(labels);
@@ -133,6 +142,13 @@ stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {
         }
     }
 });
+```
+
+另外在 1.1.8 版本中，加入了以下方法可动态删除：
+```
+stackLabelView.remove(1);        //删除第1个索引的标签
+
+stackLabelView.remove("标签2");   //删除名为“标签2”的标签
 ```
 
 ### 选择模式
@@ -153,6 +169,8 @@ stackLabelView.setSelectMode(true);
 当属性 maxSelectNum = 1 时为单选模式，选择其他 Label 会自动取消之前选中的 Label。
 
 当属性 maxSelectNum > 1 时为多选模式，选择数量大于 maxSelectNum 值时则无法选中更多的 Label。
+
+maxSelectNum 也可在代码中通过 get/set 方法设置。
 
 重复点击已选中的 Label 则会取消选中状态。
 
@@ -180,6 +198,18 @@ stackLabelView.setSelectMode(isChecked, selectLabels);
 ```
 
 以上，即 StackLabel 的基本使用流程。
+
+### 其他方法
+```
+//判断存在
+boolean isHave = stackLabelView.isHave("标签2");  //判断是否存在名为“标签2”的标签
+
+//统计数量
+int count = stackLabelView.count();              //统计所有标签数量
+
+//重新加载全部标签
+stackLabelView.reloadViews();
+```
 
 ## StackLayout 使用方法
 从 1.1.3 版本起新增组件 StackLayout，它继承自 RelativeLayout，可以将自定义的子布局直接放入即可实现堆叠排列。
@@ -233,6 +263,12 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.8:
+- 新增 `isHave(string label)`、`count()`、`reloadViews()` 等方法，使用方法详见“其他方法”；
+- 新增 `addLabel(...)` 和 `remove(...)` 方法方便动态添加删除子标签；
+- 更改了子布局排列方式，使用 layout 方法设置布局；
+- 更改了宽度计算方式，彻底修复单标签长度超出屏幕的问题；
+
 v1.1.7:
 - 对单标签长度超出屏幕的问题进行了修复，目前使用了锁最大宽度的限制方式。
 

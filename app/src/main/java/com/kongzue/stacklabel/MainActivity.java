@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         labels.add("崩崩崩");
         labels.add("Android");
         labels.add("开发");
-
+        
         stackLabelView.setLabels(labels);
         
         stackLabelView.setOnLabelClickListener(new OnLabelClickListener() {

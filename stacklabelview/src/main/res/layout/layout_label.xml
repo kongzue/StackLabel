@@ -3,45 +3,37 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.kongzue.stacklabelview.view.LabelConstraint
-        android:id="@+id/box_constraint"
+    <LinearLayout
+        android:id="@+id/box_label"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect_normal_label_button"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp">
 
-        <LinearLayout
-            android:id="@+id/box_label"
+        <TextView
+            android:id="@+id/txt_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@drawable/rect_normal_label_button"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#dc000000"
+            android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/txt_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textColor="#dc000000"
-                android:textSize="12dp" />
-
-            <ImageView
-                android:id="@+id/img_delete"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="-3dp"
-                android:padding="2dp"
-                android:src="@mipmap/img_delete"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-    </com.kongzue.stacklabelview.view.LabelConstraint>
+        <ImageView
+            android:id="@+id/img_delete"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="-3dp"
+            android:padding="2dp"
+            android:src="@mipmap/img_delete"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

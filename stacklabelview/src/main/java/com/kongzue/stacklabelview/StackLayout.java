@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
  * Mail: myzcxhh@live.cn
  * CreateTime: 2019/4/15 01:13
  */
-public class StackLayout extends RelativeLayout {
+public class StackLayout extends ViewGroup {
     
     private Context context;
     private int itemMargin = 0;
@@ -39,6 +40,11 @@ public class StackLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         this.context = context;
         loadAttrs(context, attrs);
+    }
+    
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    
     }
     
     private void loadAttrs(Context context, AttributeSet attrs) {
@@ -79,28 +85,35 @@ public class StackLayout extends RelativeLayout {
         
         newHeight = 0;
         if (items != null && !items.isEmpty()) {
+            int l = 0, t = 0, r = 0, b = 0;
             for (int i = 0; i < items.size(); i++) {
                 View item = items.get(i);
                 
-                int n_x = 0;
-                int n_y = 0;
-                int o_y = 0;
+                int mWidth = View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);           //AT_MOST：先按照最大宽度计算，如果小于则按实际值，如果大于，按最大宽度
+                int mHeight = View.MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);         //UNSPECIFIED：不确定，根据实际情况计算
+                item.measure(mWidth, mHeight);
                 
-                if (i != 0) {
-                    n_x = (int) items.get(i - 1).getX() + items.get(i - 1).getMeasuredWidth() + itemMargin;
-                    n_y = (int) items.get(i - 1).getY() + items.get(i - 1).getMeasuredHeight() + itemMargin;
-                    o_y = (int) items.get(i - 1).getY();
+                int childWidth = item.getMeasuredWidth();
+                int childHeight = item.getMeasuredHeight();
+                
+                if ((l + childWidth) > maxWidth) {
+                    l = 0;
+                    t = t + childHeight + itemMargin;
                 }
                 
-                if (n_x + item.getMeasuredWidth() > maxWidth) {
-                    n_x = 0;
-                    o_y = n_y;
+                r = l + childWidth ;
+                
+                if (childWidth > maxWidth) {
+                    r = maxWidth;
                 }
                 
-                item.setY(o_y);
-                item.setX(n_x);
+                b = t + childHeight;
                 
-                newHeight = (int) (item.getY() + item.getMeasuredHeight());
+                item.layout(l, t, r, b);
+                
+                l = l + childWidth + itemMargin;
+                
+                newHeight = t + childHeight;
             }
         }
     }
