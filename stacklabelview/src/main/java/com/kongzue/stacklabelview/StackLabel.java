@@ -36,6 +36,7 @@ public class StackLabel extends ViewGroup {
     private int itemMargin = 0;
     private int itemMarginVertical = 0;
     private int itemMarginHorizontal = 0;
+    private int maxLines = 0;
     private boolean deleteButton = false;
     
     private int deleteButtonImage = -1;
@@ -99,6 +100,7 @@ public class StackLabel extends ViewGroup {
             selectTextColor = typedArray.getColor(R.styleable.StackLabel_selectTextColor, selectTextColor);
             maxSelectNum = typedArray.getInt(R.styleable.StackLabel_maxSelectNum, maxSelectNum);
             minSelectNum = typedArray.getInt(R.styleable.StackLabel_minSelectNum, minSelectNum);
+            maxLines = typedArray.getInt(R.styleable.StackLabel_maxLines, minSelectNum);
             if (minSelectNum > maxSelectNum && maxSelectNum != 0) minSelectNum = 0;
             
             loadLabelsArray = typedArray.getString(R.styleable.StackLabel_labels);
@@ -154,7 +156,7 @@ public class StackLabel extends ViewGroup {
         if (labels != null && !labels.isEmpty()) {
             newHeight = 0;
             if (items != null && !items.isEmpty()) {
-                int l = 0, t = 0, r = 0, b = 0;
+                int l = 0, t = 0, r = 0, b = 0, lines = 0;
                 
                 for (int i = 0; i < items.size(); i++) {
                     View item = items.get(i);
@@ -169,21 +171,26 @@ public class StackLabel extends ViewGroup {
                     if ((l + childWidth) > maxWidth) {
                         l = 0;
                         t = t + childHeight;
+                        lines++;
                     }
                     
-                    r = l + childWidth;
-                    
-                    if (childWidth > maxWidth) {
-                        r = maxWidth;
+                    if (maxLines > 0 && lines >= maxLines) {
+                        item.setVisibility(GONE);
+                    } else {
+                        r = l + childWidth;
+                        
+                        if (childWidth > maxWidth) {
+                            r = maxWidth;
+                        }
+                        
+                        b = t + childHeight;
+                        
+                        item.layout(l, t, r, b);
+                        
+                        l = l + childWidth;
+                        
+                        newHeight = t + childHeight;
                     }
-                    
-                    b = t + childHeight;
-                    
-                    item.layout(l, t, r, b);
-                    
-                    l = l + childWidth;
-                    
-                    newHeight = t + childHeight;
                 }
             }
         }
@@ -508,6 +515,15 @@ public class StackLabel extends ViewGroup {
     public StackLabel setItemMarginHorizontal(int itemMarginHorizontal) {
         this.itemMarginHorizontal = itemMarginHorizontal;
         setLabels(labels);
+        return this;
+    }
+    
+    public int getMaxLines() {
+        return maxLines;
+    }
+    
+    public StackLabel setMaxLines(int maxLines) {
+        this.maxLines = maxLines;
         return this;
     }
     

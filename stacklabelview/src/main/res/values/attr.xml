@@ -18,6 +18,7 @@
         <attr name="selectTextColor" format="color" />
         <attr name="maxSelectNum" format="integer" />
         <attr name="minSelectNum" format="integer" />
+        <attr name="maxLines" format="integer" />
 
         <attr name="labels" format="string" />
     </declare-styleable>

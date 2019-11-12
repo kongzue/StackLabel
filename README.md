@@ -2,10 +2,10 @@
 Kongzue StackLabel 是堆叠标签组件，适合快速完成需要堆叠标签的场景，例如“搜索历史”、“猜你喜欢”等功能。
 
 <a href="https://github.com/kongzue/StackLabel/">
-<img src="https://img.shields.io/badge/StackLabel-1.1.8-green.svg" alt="Kongzue StackLabel">
+<img src="https://img.shields.io/badge/StackLabel-1.1.9-green.svg" alt="Kongzue StackLabel">
 </a>
-<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.8/link">
-<img src="https://img.shields.io/badge/Maven-1.1.8-blue.svg" alt="Maven">
+<a href="https://bintray.com/myzchh/maven/StackLabel/1.1.9/link">
+<img src="https://img.shields.io/badge/Maven-1.1.9-blue.svg" alt="Maven">
 </a>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">
 <img src="https://img.shields.io/badge/License-Apache%202.0-red.svg" alt="License">
@@ -35,14 +35,14 @@ Maven仓库：
 <dependency>
   <groupId>com.kongzue.stacklabel</groupId>
   <artifactId>stacklabelview</artifactId>
-  <version>1.1.8</version>
+  <version>1.1.9</version>
   <type>pom</type>
 </dependency>
 ```
 Gradle：
 在dependencies{}中添加引用：
 ```
-implementation 'com.kongzue.stacklabel:stacklabelview:1.1.8'
+implementation 'com.kongzue.stacklabel:stacklabelview:1.1.9'
 ```
 
 2) 从XML布局文件创建：
@@ -81,6 +81,7 @@ app:selectTextColor  | 选中标签文本颜色  | ColorInt
 app:maxSelectNum  | 最大选择数量  | int
 app:minSelectNum  | 最小选择数量  | int
 app:labels | 预设置标签 | String
+app:maxLines | 最大可显示行数 | int
 
 * 备注：预设置标签必须以英文“,”分隔才可生效
 
@@ -263,6 +264,9 @@ limitations under the License.
 ```
 
 ## 更新日志
+v1.1.9:
+- 新增 maxLines 属性限定可显示的最大行数。
+
 v1.1.8:
 - 新增 `isHave(string label)`、`count()`、`reloadViews()` 等方法，使用方法详见“其他方法”；
 - 新增 `addLabel(...)` 和 `remove(...)` 方法方便动态添加删除子标签；
