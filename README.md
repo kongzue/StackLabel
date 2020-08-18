@@ -22,7 +22,7 @@ Demo预览图如下：
 
 ![StackLabel](https://github.com/kongzue/Res/raw/master/app/src/main/res/mipmap-xxxhdpi/stacklabel_select_demo.png)
 
-Demo下载地址：<https://fir.im/stacklabel>
+Demo下载地址：<http://beta.kongzue.com/stacklabel>
 
 ## 优势
 - 轻松易使用，快速创建，满足绝大多数堆叠标签使用场景。
