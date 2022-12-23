@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
-def siteUrl = 'https://github.com/kongzue/StackLabel' //项目在github主页地址
-def gitUrl = 'https://github.com/kongzue/StackLabel.git'   //Git仓库的地址
-
-group = "com.kongzue.stacklabel"//发布aar前缀根节点
-version = "1.1.9"//发布aar的库版本
+ext {
+    PUBLISH_GROUP_ID = "com.kongzue.stacklabel"		//项目包名
+    PUBLISH_ARTIFACT_ID = 'StackLabel'			//项目名
+    PUBLISH_VERSION = "1.1.9"					//版本号
+}
+apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
 
 android {
     compileSdkVersion 28
@@ -30,62 +29,8 @@ android {
     }
 }
 
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                name 'StackLabel'//添加项目描述
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'myzchh'//设置自己ID
-                        name 'myzchh'//设置自己名字
-                        email 'myzcxhh@live.cn'//设置自己邮箱
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "StackLabel" //项目在JCenter的名字
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }

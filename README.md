@@ -29,6 +29,60 @@ Demo下载地址：<http://beta.kongzue.com/stacklabel>
 
 ## StackLabel 使用方法
 
+### MavenCentral 源
+
+<div>
+最新版本：
+<a href="https://github.com/kongzue/StackLabel/releases"><img src="https://img.shields.io/badge/MavenCentral%20Release-1.1.9-green.svg" alt="StackLabel Release"></a></div>
+
+1) 在 project 的 build.gradle 文件中找到 `allprojects{}` 代码块添加以下代码：
+
+```
+allprojects {
+    repositories {
+        google()
+        mavenCentral()      //增加 mavenCentral 仓库
+    }
+}
+```
+
+⚠️请注意，使用 Android Studio 北极狐版本（Arctic Fox）创建的项目，需要您前往 settings.gradle 添加上述 jitpack 仓库配置。
+
+2) 在 app 的 build.gradle 文件中找到 `dependencies{}` 代码块，并在其中加入以下语句：
+
+```
+implementation "com.kongzue.stacklabel:StackLabel:1.1.9"
+```
+
+### Jitpack 源
+
+<div>
+最新版本：
+<a href="https://jitpack.io/#kongzue/StackLabel"><img src="https://jitpack.io/v/kongzue/StackLabel.svg" alt="Jitpack.io"></a> <a href="https://github.com/kongzue/StackLabel/releases"><img src="https://img.shields.io/github/v/release/kongzue/StackLabel?color=green" alt="查看最新编译版本"></a> 
+</div>
+
+1) 在 project 的 build.gradle 文件中找到 `allprojects{}` 代码块添加以下代码：
+
+```
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }      //增加 jitPack Maven 仓库
+    }
+}
+```
+
+⚠️请注意，使用 Android Studio 北极狐版本（Arctic Fox）创建的项目，需要您前往 settings.gradle 添加上述 jitpack 仓库配置。
+
+2) 在 app 的 build.gradle 文件中找到 `dependencies{}` 代码块，并在其中加入以下语句：
+
+```
+implementation "com.github.kongzue.StackLabel:StackLabel:1.1.8"
+```
+
+### JCenter 源
+
 1) 从 Maven 仓库或 jCenter 引入：
 Maven仓库：
 ```

@@ -1,6 +1,5 @@
 package com.kongzue.stacklabel;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.kongzue.stacklabelview.StackLabel;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
