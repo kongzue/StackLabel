@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = "com.kongzue.stacklabel"		//项目包名
     PUBLISH_ARTIFACT_ID = 'StackLabel'			//项目名
-    PUBLISH_VERSION = "1.1.9"					//版本号
+    PUBLISH_VERSION = "1.2.0"					//版本号
 }
 apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
 
@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 12
-        versionName "1.1.9"
+        versionCode 13
+        versionName "1.2.0"
     }
 
     buildTypes {
@@ -31,6 +31,5 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0'
 }

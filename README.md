@@ -33,7 +33,7 @@ Demo下载地址：<http://beta.kongzue.com/stacklabel>
 
 <div>
 最新版本：
-<a href="https://github.com/kongzue/StackLabel/releases"><img src="https://img.shields.io/badge/MavenCentral%20Release-1.1.9-green.svg" alt="StackLabel Release"></a></div>
+<a href="https://github.com/kongzue/StackLabel/releases"><img src="https://img.shields.io/badge/MavenCentral%20Release-1.2.0-green.svg" alt="StackLabel Release"></a></div>
 
 1) 在 project 的 build.gradle 文件中找到 `allprojects{}` 代码块添加以下代码：
 
@@ -51,7 +51,7 @@ allprojects {
 2) 在 app 的 build.gradle 文件中找到 `dependencies{}` 代码块，并在其中加入以下语句：
 
 ```
-implementation "com.kongzue.stacklabel:StackLabel:1.1.9"
+implementation "com.kongzue.stacklabel:StackLabel:1.2.0"
 ```
 
 ### Jitpack 源
